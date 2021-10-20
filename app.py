@@ -1,3 +1,5 @@
+import re
+
 import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -16,20 +18,20 @@ print(f"Date range is {mindate} to {maxdate}")
 # represents a response code and the size of the pie piece
 # is proportional to the number of responses with that code.
 
-print("2. Pie chart for response code ")
+print("\n2. Pie chart for response code ")
 
 rc_count = myCsv['rcode'].value_counts()
 rc_count.plot.pie(figsize = (10,10))
-plt.show()
+#plt.show()
 #plt.savefig('piechart.png')
 
 # Question 3: How many different, unique clients accessed this service?
-print("3. Unique clients")
+print("\n3. Unique clients")
 unique_clients = myCsv['clientloc'].nunique()
 print("The number of unique clients = ",unique_clients)
 
 # Question 4: Which client accessed the service the most? How many times did that client access the service?
-print("4. Client that used the service the most and how many times was it used")
+print("\n4. Client that used the service the most and how many times was it used")
 client_count = myCsv['clientloc'].value_counts()
 used_service_most = client_count.keys().tolist()[0]
 print("The client who used the service the most is : ",used_service_most)
@@ -39,17 +41,30 @@ print("Number of times that the service was used = ",count_of_most_used)
 
 #Question 5: For the 5 clients with the most requests,
 # show a bar chart of how many times each client accessed the service
-print("5. For the 5 clients with the most requests bar chart of how many times each client accessed the service")
+
+print("\n5. For the 5 clients with the most requests bar chart of how many times each client accessed the service")
 first_5_clients = myCsv['clientloc']
 five_clients_count = first_5_clients.value_counts().head()
-print("First five clients : \n",five_clients_count)
+print("First five clients with the most requests:\n",five_clients_count)
 
-#printing the count values from value_counts
-#for idx,keys in enumerate(five_clients_count.index.tolist()):
-#        myCountValue = five_clients_count[idx]
-#        print(myCountValue)
-# sample
 five_clients_count.plot(kind='bar',x='Clients', y='Count')
 plt.title('Clients who used the service the most')
-plt.show()
+#plt.show()
 #plt.savefig('barplot.png')
+
+#Question 6: Which resource (which path) was accessed the most?
+print("\n6. The path that was accessed the most")
+path = myCsv['path']
+countOfPath = path.value_counts()
+mostAccessedPath = countOfPath.keys().tolist()[0]
+print("The most accessed path was: ",mostAccessedPath)
+
+#Question 7: The first element in the path indicates a resource class. List all of the accessed resource classes.
+print("\n 7. List all of the resource classes")
+pathString = repr(countOfPath)
+pattern = "/(.*?)/"
+print("All the resource classes : ")
+for element in path :
+    resourceClass = re.findall(pattern,element)
+    # still need to try and print unique resorce class names
+    print(resourceClass)
