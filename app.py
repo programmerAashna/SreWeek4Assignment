@@ -48,7 +48,7 @@ print("First five clients : \n",five_clients_count)
 #for idx,keys in enumerate(five_clients_count.index.tolist()):
 #        myCountValue = five_clients_count[idx]
 #        print(myCountValue)
-
+# sample
 five_clients_count.plot(kind='bar',x='Clients', y='Count')
 plt.title('Clients who used the service the most')
 plt.show()
