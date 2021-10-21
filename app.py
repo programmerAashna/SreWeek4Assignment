@@ -68,3 +68,17 @@ for element in path :
     resourceClass = re.findall(pattern,element)
     # still need to try and print unique resorce class names
     print(resourceClass)
+    
+#Question 9: Which day of the week typically had the most requests?
+print("9. Fiinding the day of the week with the most requests")
+dateTimestamp = pd.to_datetime(myCsv['timestamp'])
+# dateTimeStamp.dt.dayofweek - day of the week in numbers
+dayOfTheWeek = dateTimestamp.dt.day_name()
+dayWithMostRequests = dayOfTheWeek.value_counts().keys().tolist()[0]
+print("The day that received the most requests: ",dayWithMostRequests)
+
+#Question 10: During which hour of the day did the site typically serve the most data?
+print("10. Finding the hour of day that served the most data")
+hourOfDay = dateTimestamp.dt.hour
+hourOfDayServingMostData = hourOfDay.value_counts().keys().tolist()[0]
+print("The hour of day that served the most data: ",hourOfDayServingMostData,"th hour")
